@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submissions Dashboard | Tag Products & Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --yellow:#D4C000;--green:#16A34A;--indigo:#4F46E5;--amber:#B45309;--teal:#0D9488;
+  --red:#DC2626;
+  --bg:#F9F9F8;--surface:#fff;--border:rgba(0,0,0,0.08);--border-md:rgba(0,0,0,0.12);
+  --text:#111;--muted:#888;--dim:#555;
+  --radius:10px;--shadow:0 1px 3px rgba(0,0,0,0.06);--shadow-md:0 4px 12px rgba(0,0,0,0.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px;border-bottom:1px solid var(--border);background:#fff;position:sticky;top:0;z-index:50}
+.nav-logo img{height:26px;display:block}
+.nav-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;letter-spacing:-0.02em}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-link{font-size:12px;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;border:1px solid var(--border-md);transition:background 0.15s}
+.nav-link:hover{background:var(--bg)}
+
+/* AUTH */
+.auth-wrap{display:flex;align-items:center;justify-content:center;min-height:80vh}
+.auth-card{background:var(--surface);border:1px solid var(--border-md);border-radius:14px;padding:36px;width:340px;box-shadow:var(--shadow-md);text-align:center}
+.auth-card h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:8px}
+.auth-card p{font-size:13px;color:var(--muted);margin-bottom:20px}
+.auth-input{width:100%;padding:10px 14px;border:1px solid var(--border-md);border-radius:8px;font-size:14px;outline:none;margin-bottom:10px;font-family:'Inter',sans-serif}
+.auth-input:focus{border-color:#111}
+.auth-btn{width:100%;padding:10px;background:#111;color:#fff;border:none;border-radius:8px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;cursor:pointer}
+.auth-err{font-size:12px;color:var(--red);margin-top:8px}
+
+/* MAIN */
+.page{display:none;padding:28px 32px}
+.page.visible{display:block}
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.page-header h1{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.03em}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.stat-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.stat-value{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-0.03em}
+
+/* FILTERS */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.filter-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;padding:6px 14px;border-radius:20px;border:1px solid var(--border-md);background:var(--surface);color:var(--muted);cursor:pointer;transition:all 0.15s}
+.filter-btn.active{background:#111;color:#fff;border-color:#111}
+.filter-search{margin-left:auto;padding:7px 12px;border:1px solid var(--border-md);border-radius:8px;font-size:13px;font-family:'Inter',sans-serif;outline:none;width:220px}
+.filter-search:focus{border-color:#111}
+
+/* TABLE */
+.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead tr{border-bottom:1px solid var(--border-md);background:var(--bg)}
+th{padding:10px 14px;text-align:left;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);font-weight:500}
+tbody tr{border-bottom:1px solid var(--border);transition:background 0.1s;cursor:pointer}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#fafafa}
+td{padding:12px 14px;color:var(--text);vertical-align:top}
+.td-muted{color:var(--muted);font-size:12px}
+
+.badge{display:inline-flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:3px 9px;border-radius:20px;border:1px solid}
+.badge-urgent{background:#FEF2F2;color:var(--red);border-color:#FECACA}
+.badge-standard{background:#F0FDFA;color:var(--teal);border-color:#99F6E4}
+.badge-new{background:#EEF2FF;color:var(--indigo);border-color:#C7D2FE}
+.badge-in-progress{background:#FFFBEB;color:var(--amber);border-color:#FDE68A}
+.badge-done{background:#F0FDF4;color:var(--green);border-color:#BBF7D0}
+
+.status-select{font-family:'DM Mono',monospace;font-size:10px;border:1px solid var(--border-md);border-radius:6px;padding:3px 6px;background:var(--surface);cursor:pointer;color:var(--text)}
+
+.empty{text-align:center;padding:48px 24px;color:var(--muted)}
+.empty-icon{font-size:32px;margin-bottom:12px}
+
+.loading{text-align:center;padding:40px;color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.06em}
+
+@media(max-width:768px){
+  .stats{grid-template-columns:1fr 1fr}
+  .page{padding:16px}
+  nav{padding:0 16px}
+  th:nth-child(3),td:nth-child(3),
+  th:nth-child(4),td:nth-child(4){display:none}
+  .filter-search{width:140px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACuARcDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k=" alt="Tag" style="height:26px"></a>
+  <span class="nav-title">Submissions Dashboard</span>
+  <div class="nav-right">
+    <a href="index.html" class="nav-link">← Decision tree</a>
+    <button class="nav-link" onclick="logout()" style="cursor:pointer">Sign out</button>
+  </div>
+</nav>
+
+<!-- AUTH -->
+<div class="auth-wrap" id="authWrap">
+  <div class="auth-card">
+    <h2>Dashboard access</h2>
+    <p>Enter the dashboard password to continue.</p>
+    <input type="password" class="auth-input" id="pwInput" placeholder="Password" onkeydown="if(event.key==='Enter')checkAuth()">
+    <button class="auth-btn" onclick="checkAuth()">Continue →</button>
+    <div class="auth-err" id="authErr"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="page" id="dashPage">
+  <div class="page-header">
+    <h1>Submissions</h1>
+    <button class="filter-btn" onclick="loadData()" style="background:#111;color:#fff;border-color:#111">↻ Refresh</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Total</div><div class="stat-value" id="sTotal">—</div></div>
+    <div class="stat"><div class="stat-label">Urgent</div><div class="stat-value" id="sUrgent" style="color:var(--red)">—</div></div>
+    <div class="stat"><div class="stat-label">New</div><div class="stat-value" id="sNew" style="color:var(--indigo)">—</div></div>
+    <div class="stat"><div class="stat-label">In progress</div><div class="stat-value" id="sProgress" style="color:var(--amber)">—</div></div>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+    <button class="filter-btn" onclick="setFilter('new',this)">New</button>
+    <button class="filter-btn" onclick="setFilter('in-progress',this)">In progress</button>
+    <button class="filter-btn" onclick="setFilter('done',this)">Done</button>
+    <button class="filter-btn" onclick="setFilter('urgent',this)">🔴 Urgent</button>
+    <input class="filter-search" type="text" placeholder="Search name, team, path..." oninput="setSearch(this.value)">
+  </div>
+
+  <div class="table-wrap">
+    <div class="loading" id="tableLoading">Loading submissions...</div>
+    <table id="submissionsTable" style="display:none">
+      <thead>
+        <tr>
+          <th>Submitter</th>
+          <th>Path / Routed to</th>
+          <th>Description</th>
+          <th>Date</th>
+          <th>Urgency</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div class="empty" id="emptyState" style="display:none">
+      <div class="empty-icon">📭</div>
+      <div>No submissions found</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const DASH_PASSWORD = 'YOUR_DASHBOARD_PASSWORD';
+
+let allData = [];
+let activeFilter = 'all';
+let searchTerm = '';
+
+function checkAuth() {
+  const pw = document.getElementById('pwInput').value;
+  if (pw === DASH_PASSWORD) {
+    sessionStorage.setItem('dash_auth', '1');
+    document.getElementById('authWrap').style.display = 'none';
+    document.getElementById('dashPage').classList.add('visible');
+    loadData();
+  } else {
+    document.getElementById('authErr').textContent = 'Incorrect password.';
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem('dash_auth');
+  location.reload();
+}
+
+if (sessionStorage.getItem('dash_auth') === '1') {
+  document.getElementById('authWrap').style.display = 'none';
+  document.getElementById('dashPage').classList.add('visible');
+  loadData();
+}
+
+async function loadData() {
+  document.getElementById('tableLoading').style.display = 'block';
+  document.getElementById('submissionsTable').style.display = 'none';
+  document.getElementById('emptyState').style.display = 'none';
+
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/submissions?order=created_at.desc&limit=200', {
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY }
+    });
+    allData = await res.json();
+    updateStats();
+    renderTable();
+  } catch(e) {
+    document.getElementById('tableLoading').textContent = 'Failed to load — check your Supabase credentials in dashboard.html.';
+  }
+}
+
+function updateStats() {
+  document.getElementById('sTotal').textContent = allData.length;
+  document.getElementById('sUrgent').textContent = allData.filter(r=>r.urgency==='urgent').length;
+  document.getElementById('sNew').textContent = allData.filter(r=>r.status==='new').length;
+  document.getElementById('sProgress').textContent = allData.filter(r=>r.status==='in-progress').length;
+}
+
+function setFilter(f, btn) {
+  activeFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable();
+}
+
+function setSearch(val) {
+  searchTerm = val.toLowerCase();
+  renderTable();
+}
+
+function renderTable() {
+  let rows = allData;
+  if (activeFilter === 'urgent') rows = rows.filter(r => r.urgency === 'urgent');
+  else if (activeFilter !== 'all') rows = rows.filter(r => r.status === activeFilter);
+  if (searchTerm) rows = rows.filter(r =>
+    (r.submitter_name||'').toLowerCase().includes(searchTerm) ||
+    (r.team||'').toLowerCase().includes(searchTerm) ||
+    (r.path||'').toLowerCase().includes(searchTerm) ||
+    (r.routed_to||'').toLowerCase().includes(searchTerm) ||
+    (r.description||'').toLowerCase().includes(searchTerm)
+  );
+
+  document.getElementById('tableLoading').style.display = 'none';
+
+  if (!rows.length) {
+    document.getElementById('submissionsTable').style.display = 'none';
+    document.getElementById('emptyState').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('submissionsTable').style.display = 'table';
+  document.getElementById('emptyState').style.display = 'none';
+
+  document.getElementById('tableBody').innerHTML = rows.map(r => {
+    const date = r.created_at ? new Date(r.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short'}) : '—';
+    const target = r.target_date ? new Date(r.target_date).toLocaleDateString('en-GB',{day:'numeric',month:'short'}) : '';
+    const urgencyBadge = r.urgency === 'urgent'
+      ? '<span class="badge badge-urgent">🔴 Urgent</span>'
+      : '<span class="badge badge-standard">🟢 Standard</span>';
+    const statusClass = { new:'badge-new', 'in-progress':'badge-in-progress', done:'badge-done' }[r.status] || 'badge-new';
+    return '<tr><td><strong>'+esc(r.submitter_name)+'</strong><br><span class="td-muted">'+esc(r.team)+(r.client_project?'&nbsp;·&nbsp;'+esc(r.client_project):'')+'</span></td>'
+      +'<td><span style="font-size:12px;font-weight:600">'+esc(r.path)+'</span><br><span class="td-muted">→ '+esc(r.routed_to)+'</span></td>'
+      +'<td style="max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="'+esc(r.description)+'">'+esc(r.description)+'</td>'
+      +'<td class="td-muted">'+date+(target?'<br>Due: '+target:'')+'</td>'
+      +'<td>'+urgencyBadge+'</td>'
+      +'<td><select class="status-select" onchange="updateStatus(\''+r.id+'\',this.value)" onclick="event.stopPropagation()">'
+      +['new','in-progress','done'].map(s=>'<option value="'+s+'"'+(r.status===s?' selected':'')+'>'+s+'</option>').join('')
+      +'</select></td></tr>';
+  }).join('');
+}
+
+async function updateStatus(id, status) {
+  await fetch(SUPABASE_URL+'/rest/v1/submissions?id=eq.'+id, {
+    method: 'PATCH',
+    headers: {
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': 'Bearer '+SUPABASE_ANON_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify({ status })
+  });
+  const item = allData.find(r => r.id === id);
+  if (item) { item.status = status; updateStats(); }
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+document.getElementById('pwInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkAuth();
+});
+</script>
+</body>
+</html>
