@@ -1,93 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Solutions Decision Tree | Tag</title>
+<meta name="description" content="Find the right team and contact point for your need across Growth, Client and Delivery at Tag.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --yellow: #D4C000;
+  --yellow-light: #FFFBE6;
+  --yellow-border: rgba(180,160,0,0.25);
+  --green: #16A34A;
+  --green-light: #F0FDF4;
+  --green-border: rgba(22,163,74,0.2);
+  --indigo: #4F46E5;
+  --indigo-light: #EEF2FF;
+  --indigo-border: rgba(79,70,229,0.2);
+  --amber: #B45309;
+  --amber-light: #FFFBEB;
+  --amber-border: rgba(180,83,9,0.2);
+  --teal: #0D9488;
+  --teal-light: #F0FDFA;
+  --teal-border: rgba(13,148,136,0.2);
+  --bg: #FFFFFF;
+  --bg2: #F9F9F8;
+  --bg3: #F2F2F0;
+  --surface: #FFFFFF;
+  --border: rgba(0,0,0,0.08);
+  --border-md: rgba(0,0,0,0.12);
+  --text: #111111;
+  --text-muted: #888888;
+  --text-dim: #555555;
+  --radius: 10px;
+  --radius-lg: 14px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
 
-PRODUCTS & SOLUTIONS
-Internal Guide
-ENGAGEMENT GUIDE
-Where do I go? Decision tree.
-Find the right team and contact point for your need — whether you're chasing new business, growing a client, or solving a delivery challenge.
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px;
+  height: 60px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+}
+.nav-logo img { height: 28px; display: block; }
+.nav-center {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--text-muted);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.nav-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; font-weight: 500;
+  padding: 4px 12px; border-radius: 20px;
+  background: #F5F5F3; color: var(--text-dim);
+  border: 1px solid var(--border-md);
+  letter-spacing: 0.04em;
+}
 
-Tap any card to see who to contact and submit a request
-I have a need
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 56px 24px 44px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.hero-eye {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 16px;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.hero-eye::before, .hero-eye::after {
+  content: ''; display: block; width: 20px; height: 1px;
+  background: var(--border-md);
+}
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(26px, 4.5vw, 42px);
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1.07;
+  margin-bottom: 14px; color: var(--text);
+}
+.hero h1 em { font-style: normal; color: #111; text-decoration: underline; text-decoration-color: #D4C000; text-underline-offset: 4px; }
+.hero p { font-size: 15px; color: var(--text-dim); line-height: 1.75; max-width: 440px; margin: 0 auto 22px; }
+.hero-hint {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: var(--text-muted); letter-spacing: 0.06em;
+  border: 1px solid var(--border-md); border-radius: 20px;
+  padding: 6px 14px; background: var(--bg2);
+}
+.pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; flex-shrink: 0; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.7)} }
 
+/* MAIN */
+main { flex: 1; max-width: 1020px; width: 100%; margin: 0 auto; padding: 0 20px 64px; }
 
-GROWTH
+/* TREE */
+.tree { display: flex; flex-direction: column; align-items: center; }
+.start-node {
+  border: 1.5px solid #111;
+  border-radius: var(--radius);
+  padding: 10px 32px;
+  font-family: 'Syne', sans-serif;
+  font-size: 14px; font-weight: 700; color: #111;
+  background: #fff;
+  white-space: nowrap;
+  box-shadow: var(--shadow-md);
+}
+.vline { width: 1px; background: var(--border-md); }
+.branches {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  width: 100%; gap: 0; position: relative;
+}
+.branches::before {
+  content: ''; position: absolute;
+  top: 0; left: 16.6%; right: 16.6%;
+  height: 1px; background: var(--border-md);
+}
+.branch { display: flex; flex-direction: column; align-items: center; padding: 0 8px; }
+.branch-mid { border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
 
-Simple or complex?
+/* FUNCTION HEADERS */
+.fn-node {
+  width: 100%; border-radius: var(--radius);
+  padding: 10px 0; text-align: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px; font-weight: 800; letter-spacing: 0.1em;
+  box-shadow: var(--shadow);
+}
+.fn-growth   { background: var(--green-light);  border: 1.5px solid var(--green-border);  color: var(--green);  }
+.fn-client   { background: var(--indigo-light); border: 1.5px solid var(--indigo-border); color: var(--indigo); }
+.fn-delivery { background: var(--amber-light);  border: 1.5px solid var(--amber-border);  color: var(--amber);  }
 
-SIMPLE
-COMPLEX – EXISTING
+/* QUESTION NODES */
+.q-node {
+  width: 100%; background: var(--bg2);
+  border: 1px solid var(--border-md); border-radius: var(--radius);
+  padding: 8px 12px; text-align: center;
+  font-size: 11.5px; color: var(--text-dim); font-style: italic;
+}
 
-Growth owns
-Pitching with a known Tag capability — no new build needed.
-IGS Lead
-Existing solution needs packaging for a new pitch context.
-CUSTOM – NEW SOLUTION
-IGS Lead + InnoLab
-Pitch needs a bespoke or net-new solution built to win the work.
+/* BRANCH LABELS */
+.split-labels { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 4px; }
+.split-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-muted);
+  text-align: center; padding: 3px 0;
+}
 
-CLIENT
+/* OUTCOME CARDS */
+.outcomes { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; }
+.card {
+  border-radius: var(--radius); padding: 11px 12px;
+  border: 1.5px solid transparent; cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  position: relative; box-shadow: var(--shadow);
+}
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.card:active { transform: translateY(0); }
+.card-title { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; margin-bottom: 5px; }
+.card-desc { font-size: 10.5px; line-height: 1.55; color: var(--text-dim); }
 
-Simple or complex?
+.c-green   { background: var(--green-light);  border-color: var(--green-border);  }
+.c-green:hover  { border-color: var(--green); }
+.c-green .card-title  { color: var(--green); }
 
-SIMPLE
-COMPLEX – EXISTING
+.c-yellow  { background: var(--yellow-light); border-color: var(--yellow-border); }
+.c-yellow:hover { border-color: var(--yellow); }
+.c-yellow .card-title { color: #6B5E00; }
 
-Client + PM
-Proven solution exists — client leads, PM coordinates scope.
-PM + InnoLab + IGS
-Solution exists but needs tailoring — PM owns, InnoLab customises.
-CUSTOM – NEW SOLUTION
-IGS Lead + InnoLab
-No existing solution fits — full scoping, build and commercial sign-off required.
+.c-indigo  { background: var(--indigo-light); border-color: var(--indigo-border); }
+.c-indigo:hover { border-color: var(--indigo); }
+.c-indigo .card-title { color: var(--indigo); }
 
-DELIVERY
+.c-teal    { background: var(--teal-light);   border-color: var(--teal-border);   }
+.c-teal:hover   { border-color: var(--teal); }
+.c-teal .card-title   { color: var(--teal); }
 
-Existing or new?
+.c-amber   { background: var(--amber-light);  border-color: var(--amber-border);  }
+.c-amber:hover  { border-color: var(--amber); }
+.c-amber .card-title  { color: var(--amber); }
 
-BAU
-ADOPT
+.card.full { grid-column: 1 / -1; }
+.sub-block { grid-column: 1 / -1; width: 100%; }
+.sub-label-row {
+  display: flex; align-items: center; gap: 8px; padding: 8px 0 5px;
+}
+.sub-label-row::before, .sub-label-row::after {
+  content: ''; flex: 1; height: 1px; background: var(--border-md);
+}
+.sub-label-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted); white-space: nowrap;
+}
 
-Delivery team
-Solution live and stable — Delivery manages BAU, no product input needed.
-Delivery Opt. Mgr + InnoLab
-Solution exists but teams aren't using it — drive adoption.
-NEW
-PM + IGS + InnoLab + Delivery
-No solution exists — PM leads scoping with IGS and Delivery to assess and build.
+/* LEGEND */
+.legend {
+  display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+  margin: 20px 0 0; padding: 18px 0 0;
+  border-top: 1px solid var(--border);
+}
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-muted); }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
-IGS Lead
+/* DRAWER */
+.overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: flex-end; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+.overlay.open { opacity: 1; pointer-events: all; }
+.drawer {
+  background: #fff;
+  border: 1px solid var(--border-md);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: 24px 28px 40px;
+  max-width: 560px; width: 100%;
+  transform: translateY(24px);
+  transition: transform 0.28s cubic-bezier(0.34,1.4,0.64,1);
+  position: relative;
+  box-shadow: 0 -8px 32px rgba(0,0,0,0.1);
+  max-height: 90vh; overflow-y: auto;
+}
+.overlay.open .drawer { transform: translateY(0); }
+.drawer-handle { width: 36px; height: 3px; background: var(--border-md); border-radius: 2px; margin: 0 auto 20px; }
+.drawer-close {
+  position: absolute; top: 18px; right: 18px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--bg2); border: 1px solid var(--border-md);
+  color: var(--text-muted); font-size: 14px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+.drawer-close:hover { background: var(--bg3); }
+.drawer-path {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 6px;
+}
+.drawer-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px; font-weight: 800; letter-spacing: -0.03em;
+  color: var(--text); margin-bottom: 4px; line-height: 1.2;
+}
+.drawer-divider { height: 1px; background: var(--border); margin: 14px 0; }
+.drawer-section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 7px;
+}
+.drawer-scenario { font-size: 13.5px; line-height: 1.75; color: var(--text-dim); margin-bottom: 18px; }
+.drawer-steps { list-style: none; margin-bottom: 18px; }
+.drawer-steps li {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 8px 0; border-top: 1px solid var(--border);
+  font-size: 13px; color: var(--text-dim); line-height: 1.5;
+}
+.drawer-steps li:first-child { border-top: none; }
+.step-num {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #111; color: #fff;
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.drawer-owners { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+.owner-chip {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 600;
+  padding: 5px 12px; border-radius: 20px; border: 1px solid;
+}
+.chip-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
-Program Manager
+/* REQUEST FORM */
+.form-wrap {
+  background: var(--bg2); border: 1px solid var(--border-md);
+  border-radius: var(--radius-lg); padding: 20px;
+  margin-top: 4px;
+}
+.form-wrap h3 {
+  font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+  color: var(--text); margin-bottom: 4px;
+}
+.form-wrap .form-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.form-row.single { grid-template-columns: 1fr; }
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-group label {
+  font-family: 'DM Mono', monospace; font-size: 9px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);
+}
+.form-group input, .form-group textarea, .form-group select {
+  background: #fff; border: 1px solid var(--border-md);
+  border-radius: 8px; padding: 8px 11px;
+  font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text);
+  outline: none; transition: border-color 0.15s;
+  width: 100%;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  border-color: #111;
+}
+.form-group textarea { resize: vertical; min-height: 80px; }
+.urgency-row { display: flex; gap: 8px; margin-bottom: 10px; }
+.urgency-btn {
+  flex: 1; padding: 8px; border-radius: 8px; border: 1.5px solid var(--border-md);
+  background: #fff; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
+  color: var(--text-dim); cursor: pointer; transition: all 0.15s; text-align: center;
+}
+.urgency-btn.active-urgent { border-color: #DC2626; background: #FEF2F2; color: #DC2626; }
+.urgency-btn.active-standard { border-color: var(--teal); background: var(--teal-light); color: var(--teal); }
+.submit-btn {
+  width: 100%; padding: 11px; border-radius: 8px;
+  background: #111; border: none; color: #fff;
+  font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: background 0.15s, transform 0.1s;
+  margin-top: 12px; letter-spacing: 0.02em;
+}
+.submit-btn:hover { background: #333; }
+.submit-btn:active { transform: scale(0.99); }
+.submit-btn:disabled { background: #ccc; cursor: not-allowed; }
+.form-success {
+  display: none; text-align: center; padding: 20px 0 4px;
+}
+.form-success .tick {
+  width: 40px; height: 40px; border-radius: 50%; background: #F0FDF4;
+  border: 2px solid var(--green); margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.form-success h4 { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.form-success p { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+.form-error { font-size: 12px; color: #DC2626; margin-top: 8px; display: none; }
 
-Growth
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 18px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px; background: var(--bg2);
+}
+footer img { height: 22px; }
+footer p { font-family: 'DM Mono', monospace; font-size: 10px; color: #aaa; letter-spacing: 0.04em; }
 
-Client
+/* SPACERS */
+.gap4{height:4px}.gap6{height:6px}.gap8{height:8px}
+.gap10{height:10px}.gap12{height:12px}.gap16{height:16px}
 
-Delivery
+/* RESPONSIVE */
+@media (max-width: 680px) {
+  .branches { grid-template-columns: 1fr; }
+  .branches::before { display: none; }
+  .branch-mid { border: none; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 8px 0; }
+  nav { padding: 0 16px; }
+  .nav-center { display: none; }
+  main { padding: 0 12px 48px; }
+  .drawer { padding: 18px 16px 32px; }
+  .form-row { grid-template-columns: 1fr; }
+  .hero { padding: 36px 16px 28px; }
+}
 
-Products & Solutions · Internal use only · Questions? Contact the CPO office
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)} }
+.tree > * { animation: fadeUp 0.45s ease both; }
+.tree > *:nth-child(1){animation-delay:0.05s}
+.tree > *:nth-child(2){animation-delay:0.1s}
+.tree > *:nth-child(3){animation-delay:0.15s}
+.tree > *:nth-child(4){animation-delay:0.2s}
+</style>
+</head>
+<body>
 
-✕
+<nav>
+  <a class="nav-logo" href="#"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACuARcDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k=" alt="Tag"></a>
+  <span class="nav-center">Products &amp; Solutions</span>
+  <span class="nav-badge">Internal Guide</span>
+</nav>
 
+<section class="hero">
+  <div class="hero-eye">Engagement Guide</div>
+  <h1>Where do I go? <em>Decision tree.</em></h1>
+  <p>Find the right team and contact point for your need — whether you're chasing new business, growing a client, or solving a delivery challenge.</p>
+  <div class="hero-hint"><span class="pulse"></span>Tap any card to see who to contact and submit a request</div>
+</section>
 
+<main>
+<div class="tree">
 
-WHEN TO USE THIS PATH
+  <div class="start-node">I have a need</div>
+  <div class="vline gap16"></div>
 
-WHAT HAPPENS
-		
-OWNERSHIP
-Submit a request
-Your request will be routed to the right contact.
-YOUR NAME
+  <div class="branches">
 
-YOUR EMAIL
+    <!-- GROWTH -->
+    <div class="branch">
+      <div class="vline gap12"></div>
+      <div class="fn-node fn-growth">GROWTH</div>
+      <div class="vline gap10"></div>
+      <div class="q-node">Simple or complex?</div>
+      <div class="vline gap8"></div>
+      <div class="split-labels"><div class="split-label">Simple</div><div class="split-label">Complex – existing</div></div>
+      <div class="gap4"></div>
+      <div class="outcomes">
+        <div class="card c-green" onclick="openDrawer('g1')">
+          <div class="card-title">Growth owns</div>
+          <div class="card-desc">Pitching with a known Tag capability — no new build needed.</div>
+        </div>
+        <div class="card c-yellow" onclick="openDrawer('g2')">
+          <div class="card-title">IGS Lead</div>
+          <div class="card-desc">Existing solution needs packaging for a new pitch context.</div>
+        </div>
+        <div class="sub-block">
+          <div class="sub-label-row"><span class="sub-label-text">Custom – new solution</span></div>
+          <div class="card c-yellow full" onclick="openDrawer('g3')">
+            <div class="card-title">IGS Lead + InnoLab</div>
+            <div class="card-desc">Pitch needs a bespoke or net-new solution built to win the work.</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-YOUR TEAM
+    <!-- CLIENT -->
+    <div class="branch branch-mid">
+      <div class="vline gap12"></div>
+      <div class="fn-node fn-client">CLIENT</div>
+      <div class="vline gap10"></div>
+      <div class="q-node">Simple or complex?</div>
+      <div class="vline gap8"></div>
+      <div class="split-labels"><div class="split-label">Simple</div><div class="split-label">Complex – existing</div></div>
+      <div class="gap4"></div>
+      <div class="outcomes">
+        <div class="card c-indigo" onclick="openDrawer('c1')">
+          <div class="card-title">Client + PM</div>
+          <div class="card-desc">Proven solution exists — client leads, PM coordinates scope.</div>
+        </div>
+        <div class="card c-teal" onclick="openDrawer('c2')">
+          <div class="card-title">PM + InnoLab + IGS</div>
+          <div class="card-desc">Solution exists but needs tailoring — PM owns, InnoLab customises.</div>
+        </div>
+        <div class="sub-block">
+          <div class="sub-label-row"><span class="sub-label-text">Custom – new solution</span></div>
+          <div class="card c-yellow full" onclick="openDrawer('c3')">
+            <div class="card-title">IGS Lead + InnoLab</div>
+            <div class="card-desc">No existing solution fits — full scoping, build and commercial sign-off required.</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-CLIENT / PROJECT
+    <!-- DELIVERY -->
+    <div class="branch">
+      <div class="vline gap12"></div>
+      <div class="fn-node fn-delivery">DELIVERY</div>
+      <div class="vline gap10"></div>
+      <div class="q-node">Existing or new?</div>
+      <div class="vline gap8"></div>
+      <div class="split-labels"><div class="split-label">BAU</div><div class="split-label">Adopt</div></div>
+      <div class="gap4"></div>
+      <div class="outcomes">
+        <div class="card c-amber" onclick="openDrawer('d1')">
+          <div class="card-title">Delivery team</div>
+          <div class="card-desc">Solution live and stable — Delivery manages BAU, no product input needed.</div>
+        </div>
+        <div class="card c-amber" onclick="openDrawer('d2')">
+          <div class="card-title">Delivery Opt. Mgr + InnoLab</div>
+          <div class="card-desc">Solution exists but teams aren't using it — drive adoption.</div>
+        </div>
+        <div class="sub-block">
+          <div class="sub-label-row"><span class="sub-label-text">New</span></div>
+          <div class="card c-teal full" onclick="openDrawer('d3')">
+            <div class="card-title">PM + IGS + InnoLab + Delivery</div>
+            <div class="card-desc">No solution exists — PM leads scoping with IGS and Delivery to assess and build.</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-BRIEF DESCRIPTION
-URGENCY
-🔴 Urgent
-🟢 Standard
-TARGET DATE (OPTIONAL)
-Submit request →
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#B45309"></div>IGS Lead</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#0D9488"></div>Program Manager</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#16A34A"></div>Growth</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#4F46E5"></div>Client</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#B45309"></div>Delivery</div>
+  </div>
+
+</div>
+</main>
+
+<footer>
+  <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACuARcDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k=" alt="Tag">
+  <p>Products &amp; Solutions · Internal use only · Questions? Contact the CPO office</p>
+</footer>
+
+<!-- DRAWER -->
+<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
+  <div class="drawer" id="drawer">
+    <div class="drawer-handle"></div>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    <div class="drawer-path" id="dPath"></div>
+    <div class="drawer-title" id="dTitle"></div>
+    <div class="drawer-divider"></div>
+    <div class="drawer-section-label">When to use this path</div>
+    <div class="drawer-scenario" id="dScenario"></div>
+    <div class="drawer-section-label">What happens</div>
+    <ul class="drawer-steps" id="dSteps"></ul>
+    <div class="drawer-section-label">Ownership</div>
+    <div class="drawer-owners" id="dOwners"></div>
+
+    <!-- REQUEST FORM -->
+    <div class="form-wrap" id="formWrap">
+      <h3>Submit a request</h3>
+      <p class="form-sub" id="formSub">Your request will be routed to the right contact.</p>
+      <div id="formFields">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your name</label>
+            <input type="text" id="fName" placeholder="Full name" required>
+          </div>
+          <div class="form-group">
+            <label>Your email</label>
+            <input type="email" id="fEmail" placeholder="name@tagww.com" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your team</label>
+            <input type="text" id="fTeam" placeholder="e.g. APAC Client" required>
+          </div>
+          <div class="form-group">
+            <label>Client / project</label>
+            <input type="text" id="fClient" placeholder="e.g. Unilever" >
+          </div>
+        </div>
+        <div class="form-row single">
+          <div class="form-group">
+            <label>Brief description</label>
+            <textarea id="fDesc" placeholder="Describe your need in a few sentences..." required></textarea>
+          </div>
+        </div>
+        <div class="drawer-section-label" style="margin-bottom:8px">Urgency</div>
+        <div class="urgency-row">
+          <button type="button" class="urgency-btn" id="btnUrgent" onclick="setUrgency('urgent')">🔴 Urgent</button>
+          <button type="button" class="urgency-btn" id="btnStandard" onclick="setUrgency('standard')">🟢 Standard</button>
+        </div>
+        <div class="form-row single">
+          <div class="form-group">
+            <label>Target date (optional)</label>
+            <input type="date" id="fDate">
+          </div>
+        </div>
+        <div class="form-error" id="formError">Please fill in all required fields.</div>
+        <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit request →</button>
+      </div>
+      <div class="form-success" id="formSuccess">
+        <div class="tick">✓</div>
+        <h4>Request submitted</h4>
+        <p id="successMsg">Your request has been sent. You'll receive a confirmation email shortly.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+const DATA = {
+  g1:{path:"Growth · Simple",title:"Growth owns this",routed:"Growth Director",scenario:"You're pitching with a known, proven Tag capability. No new build or customisation is required — the solution exists and is ready to go.",steps:["Growth Director qualifies opportunity against existing capabilities","Growth team leads pitch using established product or solution","Client function supports with account context if applicable","Delivery confirms scope and feasibility on request"],owners:[{t:"Growth function",c:"#16A34A"},{t:"Client supports",c:"#4F46E5"}]},
+  g2:{path:"Growth · Complex – existing solution",title:"IGS Lead packages & pitches",routed:"IGS Lead",scenario:"You have a growth opportunity that needs a solution — and something similar exists at Tag, but it needs adapting or repackaging for the specific pitch context.",steps:["Contact IGS Lead with pitch brief and timeline","IGS Lead identifies and adapts the best-fit existing solution","IGS Lead hands adapted solution back to Growth for pitch integration","Growth leads final pitch delivery; IGS Lead oversees win handover to Delivery"],owners:[{t:"IGS Lead",c:"#B45309"},{t:"Growth owns pitch",c:"#16A34A"}]},
+  g3:{path:"Growth · Custom – new solution",title:"IGS Lead + Innovation Lab",routed:"IGS Lead",scenario:"The pitch requires a bespoke or net-new solution that doesn't yet exist at Tag. This is a significant investment requiring IGS Lead involvement to brief Innovation Lab.",steps:["Contact IGS Lead with pitch brief and custom solution requirement","IGS Lead briefs Innovation Lab and confirms feasibility","Innovation Lab scopes and builds the custom solution","On win: IGS Lead oversees handover to Delivery for full execution"],owners:[{t:"IGS Lead",c:"#B45309"},{t:"Innovation Lab",c:"#B45309"},{t:"Growth owns pitch",c:"#16A34A"}]},
+  c1:{path:"Client · Simple",title:"Client + PM",routed:"Program Manager",scenario:"A proven, packaged solution already exists and is ready to deploy for your client. No customisation needed — the Client function leads and the Program Manager coordinates delivery.",steps:["Client identifies opportunity in QBR or account review","Contact Program Manager to coordinate scope and timeline","PM aligns Delivery team on capacity and resourcing","Commercial model updated if revenue-generating"],owners:[{t:"Client leads",c:"#4F46E5"},{t:"Program Manager",c:"#0D9488"},{t:"Delivery executes",c:"#B45309"}]},
+  c2:{path:"Client · Complex – needs customising",title:"PM + InnoLab + IGS",routed:"Program Manager",scenario:"A solution exists at Tag but needs tailoring to meet specific client requirements. The Program Manager owns the engagement; Innovation Lab leads customisation; IGS Lead ensures the solution meets the client need.",steps:["Program Manager owns delivery — briefs IGS Lead on client context","Innovation Lab leads tool customisation and technical build","IGS Lead validates the solution meets client requirement throughout","PM coordinates handover to Delivery once solution is confirmed"],owners:[{t:"Program Manager",c:"#0D9488"},{t:"Innovation Lab",c:"#B45309"},{t:"IGS Lead",c:"#B45309"}]},
+  c3:{path:"Client · Custom – full scoping",title:"IGS Lead + Innovation Lab",routed:"IGS Lead",scenario:"No existing solution fits the client need. A full scoping exercise, feasibility assessment and new build is required. Requires Growth Director and CPO sign-off before work begins.",steps:["Contact IGS Lead — escalates to Growth Director and CPO for prioritisation","Innovation Lab leads feasibility assessment and AI Council classification","PoC built with client involvement before full commitment","Commercial model and delivery resourcing agreed before launch"],owners:[{t:"IGS Lead",c:"#B45309"},{t:"Innovation Lab",c:"#B45309"},{t:"Growth Director ✓",c:"#16A34A"},{t:"Delivery at scale",c:"#B45309"}]},
+  d1:{path:"Delivery · Existing – BAU",title:"Delivery team owns this",routed:"Delivery team",scenario:"The solution is live, stable and adopted. No Innovation Lab or product involvement required. Day-to-day operation is a Delivery responsibility.",steps:["Delivery team manages BAU operation of the solution","Tool or vendor issues escalated to Operations or IT","Innovation Lab not in scope — solution is stabilised and handed over","Adoption metrics tracked via Ops and Data team dashboards"],owners:[{t:"Delivery team",c:"#B45309"},{t:"Operations / IT",c:"#B45309"}]},
+  d2:{path:"Delivery · Existing – drive adoption",title:"Delivery Opt. Mgr + InnoLab",routed:"Delivery Optimisation Manager",scenario:"A solution exists and has been deployed, but your team isn't using it consistently or at all. The Delivery Optimisation Manager leads adoption; Innovation Lab provides training and enablement.",steps:["Contact Delivery Optimisation Manager to flag the adoption gap","Innovation Lab assesses adoption barriers and designs enablement plan","Training sessions delivered and Studio Champions activated","Adoption tracked and reviewed at quarterly KPI review"],owners:[{t:"Delivery Opt. Mgr",c:"#B45309"},{t:"Innovation Lab",c:"#B45309"},{t:"Studio Champions",c:"#B45309"}]},
+  d3:{path:"Delivery · New capability",title:"PM + IGS + InnoLab + Delivery",routed:"Program Manager",scenario:"No solution exists for the delivery challenge you're facing. Contact the Program Manager who will engage the right people — IGS Lead assesses fit, Innovation Lab builds, Delivery validates.",steps:["Contact Program Manager with the capability need and context","PM engages IGS Lead to assess solution fit and strategic value","Innovation Lab scopes, builds and confirms feasibility","Delivery validates resourcing and integrates solution into workflows"],owners:[{t:"Program Manager",c:"#0D9488"},{t:"IGS Lead",c:"#B45309"},{t:"Innovation Lab",c:"#B45309"},{t:"Delivery validates",c:"#B45309"}]}
+};
+
+let currentPath = null;
+let urgency = null;
+
+function openDrawer(id) {
+  currentPath = id;
+  urgency = null;
+  const d = DATA[id];
+  document.getElementById('dPath').textContent = d.path;
+  document.getElementById('dTitle').textContent = d.title;
+  document.getElementById('dScenario').textContent = d.scenario;
+  document.getElementById('dSteps').innerHTML = d.steps.map((s,i) =>
+    '<li><span class="step-num">'+(i+1)+'</span><span>'+s+'</span></li>'
+  ).join('');
+  document.getElementById('dOwners').innerHTML = d.owners.map(o =>
+    '<span class="owner-chip" style="color:'+o.c+';border-color:'+o.c+'33;background:'+o.c+'11"><span class="chip-dot" style="background:'+o.c+'"></span>'+o.t+'</span>'
+  ).join('');
+  document.getElementById('formSub').textContent = 'Your request will be routed to: '+d.routed;
+  // reset form
+  ['fName','fEmail','fTeam','fClient','fDesc','fDate'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('btnUrgent').className = 'urgency-btn';
+  document.getElementById('btnStandard').className = 'urgency-btn';
+  document.getElementById('formFields').style.display = '';
+  document.getElementById('formSuccess').style.display = 'none';
+  document.getElementById('formError').style.display = 'none';
+  document.getElementById('submitBtn').disabled = false;
+  document.getElementById('submitBtn').textContent = 'Submit request →';
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDrawer() {
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target.id === 'overlay') closeDrawer();
+}
+
+function setUrgency(val) {
+  urgency = val;
+  document.getElementById('btnUrgent').className = 'urgency-btn' + (val === 'urgent' ? ' active-urgent' : '');
+  document.getElementById('btnStandard').className = 'urgency-btn' + (val === 'standard' ? ' active-standard' : '');
+}
+
+async function submitForm() {
+  const name = document.getElementById('fName').value.trim();
+  const email = document.getElementById('fEmail').value.trim();
+  const team = document.getElementById('fTeam').value.trim();
+  const desc = document.getElementById('fDesc').value.trim();
+  const errEl = document.getElementById('formError');
+
+  if (!name || !email || !team || !desc || !urgency) {
+    errEl.textContent = !urgency ? 'Please select an urgency level.' : 'Please fill in all required fields.';
+    errEl.style.display = 'block';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  const d = DATA[currentPath];
+  const payload = {
+    submitter_name: name,
+    submitter_email: email,
+    team: team,
+    client_project: document.getElementById('fClient').value.trim(),
+    description: desc,
+    urgency: urgency,
+    target_date: document.getElementById('fDate').value || null,
+    path: d.path,
+    routed_to: d.routed,
+    status: 'new'
+  };
+
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/submissions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) throw new Error('Supabase error');
+
+    // trigger email via Vercel function
+    await fetch('/api/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+
+    document.getElementById('formFields').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+    document.getElementById('successMsg').textContent =
+      'Your request has been routed to ' + d.routed + '. A confirmation email is on its way to ' + email + '.';
+
+  } catch(e) {
+    errEl.textContent = 'Something went wrong — please try again or contact the CPO office directly.';
+    errEl.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Submit request →';
+  }
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+</script>
+</body>
+</html>
